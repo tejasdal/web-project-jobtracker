@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class JobApplicationService implements IJobApplicationService{
 
     Logger log = LoggerFactory.getLogger(JobApplicationService.class);
+
     @Autowired
     private IJobApplicationPersistence jobApplicationPersistence;
 

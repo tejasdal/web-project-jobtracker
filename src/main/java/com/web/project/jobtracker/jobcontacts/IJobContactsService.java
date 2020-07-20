@@ -1,0 +1,18 @@
+package com.web.project.jobtracker.jobcontacts;
+
+import com.web.project.jobtracker.jobcontacts.exception.JobContactsException;
+import com.web.project.jobtracker.jobcontacts.exception.JobContactsInvalidArgumentException;
+import com.web.project.jobtracker.jobcontacts.exception.JobContactsNotExistsException;
+
+import java.util.List;
+
+public interface IJobContactsService {
+    List<JobContacts> getAllJobContacts();
+
+    JobContacts saveJobContacts(JobContacts jobContacts) throws JobContactsInvalidArgumentException, JobContactsNotExistsException, JobContactsException;
+
+    JobContacts updateJobContacts(JobContacts jobContacts) throws JobContactsInvalidArgumentException, JobContactsNotExistsException, JobContactsException;
+
+    void deleteJobContacts(JobContacts jobContacts) throws JobContactsNotExistsException, JobContactsException;
+
+}
