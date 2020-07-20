@@ -15,3 +15,11 @@ CREATE TABLE JobApplication (
     updated_date DATE
 );
 
+CREATE TABLE Contact (
+    ContactID BIGINT NOT NULL AUTO_INCREMENT,
+    ContactName VARCHAR(45) NOT NULL,
+    ContactEmail VARCHAR(45) NOT NULL,
+    Company VARCHAR(45),
+    JobPosition VARCHAR(45),
+    PRIMARY KEY (ContactID)
+ );
