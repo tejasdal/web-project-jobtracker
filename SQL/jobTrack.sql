@@ -25,7 +25,7 @@ CREATE TABLE Contact (
  );
 
 CREATE TABLE activity (
-  id INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   user_id VARCHAR(50) NULL,
   date_created DATE NULL,
   date_completed DATE NULL,
@@ -34,3 +34,8 @@ CREATE TABLE activity (
   activity_detail VARCHAR(400) NULL,
   PRIMARY KEY (id)
  );
+
+CREATE TABLE notes (
+  NoteID INT NOT NULL AUTO_INCREMENT,
+  NoteDetails VARCHAR(400) NOT NULL,
+  PRIMARY KEY (NoteID));
