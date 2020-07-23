@@ -31,8 +31,8 @@ public class JobContactsService implements IJobContactsService{
        try {
            return this.jobContactsPersistence.save(jobContacts);
        }catch (Exception e){
-           log.error("Error while updating the contact with ContactID: {} in the database.", jobContacts.getContactID());
-           throw new JobContactsException("Error while updating job contacts with ID: " + jobContacts.getContactID()+
+           log.error("Error while saving the contact with ContactID: {} in the database.", jobContacts.getContactID());
+           throw new JobContactsException("Error while saving job contacts with ID: " + jobContacts.getContactID()+
                    " in the database.", e);
        }
     }
@@ -50,12 +50,12 @@ public class JobContactsService implements IJobContactsService{
     }
 
     @Override
-    public void deleteJobContacts(JobContacts jobContacts) throws JobContactsNotExistsException, JobContactsException {
+    public void deleteJobContacts(Long jobContactId) throws JobContactsNotExistsException, JobContactsException {
         try {
-            this.jobContactsPersistence.delete(jobContacts);
+            this.jobContactsPersistence.delete(jobContactId);
         }catch (Exception e){
-            log.error("Error while updating the contact with ContactID: {} in the database.", jobContacts.getContactID());
-            throw new JobContactsException("Error while updating job contacts with ID: " + jobContacts.getContactID()+
+            log.error("Error while deleting the contact with ContactID: {} in the database.", jobContactId);
+            throw new JobContactsException("Error while deleting job contacts with ID: " + jobContactId+
                     " in the database.", e);
         }
     }

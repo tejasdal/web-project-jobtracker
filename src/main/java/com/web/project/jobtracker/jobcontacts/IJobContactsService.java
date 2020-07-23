@@ -13,6 +13,6 @@ public interface IJobContactsService {
 
     JobContacts updateJobContacts(JobContacts jobContacts) throws JobContactsInvalidArgumentException, JobContactsNotExistsException, JobContactsException;
 
-    void deleteJobContacts(JobContacts jobContacts) throws JobContactsNotExistsException, JobContactsException;
+    void deleteJobContacts(Long jobContactId) throws JobContactsNotExistsException, JobContactsException;
 
 }
