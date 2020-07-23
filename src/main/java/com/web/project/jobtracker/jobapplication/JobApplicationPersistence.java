@@ -20,12 +20,12 @@ public class JobApplicationPersistence implements IJobApplicationPersistence {
     private PreparedStatement preparedStatement;
     private Statement statement;
 
-    public static final String FIND_BY_ID = "SELECT id, role, company, job_board_id, status_id, created_date, updated_date FROM JobApplication where id = ?";
-    public static final String FIND_BY_ROLE_COMPANY_STATUS_CREATEDAT = "SELECT id, role, company, job_board_id, status_id, created_date, updated_date FROM JobApplication where role = ?, company = ?, job_board_id = ?, status_id = ?, created_date = ?";
-    public static final String FIND_BY_JOB_BOARD_ID = "SELECT id, role, company, job_board_id, status_id, created_date, updated_date FROM JobApplication where job_board_id = ?";
-    public static final String INSERT = "INSERT INTO JobApplication(role, company, job_board_id, status_id, created_date, updated_date) VALUE(?, ?, ?, ?, ?, ?)";
-    public static final String UPDATE = "UPDATE JobApplication SET role = ?, company = ?, status_id = ?, updated_date = ? WHERE id = ?";
-    public static final String DELETE = "DELETE FROM JobApplication WHERE id = ?";
+    public static final String FIND_BY_ID = "SELECT id, role, company, user_id, job_board_id, status_id, created_date, updated_date FROM jobapplication where id = ?";
+    public static final String FIND_BY_ROLE_COMPANY_STATUS_CREATEDAT = "SELECT id, role, company, user_id, job_board_id, status_id, created_date, updated_date FROM jobapplication where role = ?, company = ?, job_board_id = ?, status_id = ?, created_date = ?";
+    public static final String FIND_BY_JOB_BOARD_ID = "SELECT id, role, company, user_id, job_board_id, status_id, created_date, updated_date FROM jobapplication where job_board_id = ?";
+    public static final String INSERT = "INSERT INTO jobapplication(role, company, user_id, job_board_id, status_id, created_date, updated_date) VALUE(?, ?, ?, ?, ?, ?, ?)";
+    public static final String UPDATE = "UPDATE jobapplication SET role = ?, company = ?, status_id = ?, updated_date = ? WHERE id = ?";
+    public static final String DELETE = "DELETE FROM jobapplication WHERE id = ?";
 
     @Override
     public JobApplication findById(Long jobApplicationId) {
@@ -40,10 +40,11 @@ public class JobApplicationPersistence implements IJobApplicationPersistence {
                 jobApplication.setId(resultSet.getLong(1));
                 jobApplication.setJobRole(resultSet.getString(2));
                 jobApplication.setCompany(resultSet.getString(3));
-                jobApplication.setJobBoardId(resultSet.getLong(4));
-                jobApplication.setStatus(JobApplicationStatus.valueOf(resultSet.getInt(5)));
-                jobApplication.setCreatedAt(resultSet.getTimestamp(6));
-                jobApplication.setUpdatedAt(resultSet.getTimestamp(7));
+                jobApplication.setUserId(resultSet.getString(4));
+                jobApplication.setJobBoardId(resultSet.getLong(5));
+                jobApplication.setStatus(JobApplicationStatus.valueOf(resultSet.getInt(6)));
+                jobApplication.setCreatedAt(resultSet.getTimestamp(7));
+                jobApplication.setUpdatedAt(resultSet.getTimestamp(8));
             }
             return jobApplication;
         } catch (SQLException e) {
@@ -71,10 +72,11 @@ public class JobApplicationPersistence implements IJobApplicationPersistence {
                 dbJobApplication.setId(resultSet.getLong(1));
                 dbJobApplication.setJobRole(resultSet.getString(2));
                 dbJobApplication.setCompany(resultSet.getString(3));
-                dbJobApplication.setJobBoardId(resultSet.getLong(4));
-                dbJobApplication.setStatus(JobApplicationStatus.valueOf(resultSet.getInt(5)));
-                dbJobApplication.setCreatedAt(resultSet.getTimestamp(6));
-                dbJobApplication.setUpdatedAt(resultSet.getTimestamp(7));
+                jobApplication.setUserId(resultSet.getString(4));
+                jobApplication.setJobBoardId(resultSet.getLong(5));
+                jobApplication.setStatus(JobApplicationStatus.valueOf(resultSet.getInt(6)));
+                jobApplication.setCreatedAt(resultSet.getTimestamp(7));
+                jobApplication.setUpdatedAt(resultSet.getTimestamp(8));
             }
             return dbJobApplication;
         } catch (SQLException e) {
@@ -93,10 +95,11 @@ public class JobApplicationPersistence implements IJobApplicationPersistence {
             this.getPreparedStatement(INSERT);
             this.preparedStatement.setString(1, jobApplication.getJobRole());
             this.preparedStatement.setString(2, jobApplication.getCompany());
-            this.preparedStatement.setLong(3, jobApplication.getJobBoardId());
-            this.preparedStatement.setInt(4, jobApplication.getStatus().getValue());
-            this.preparedStatement.setTimestamp(5, jobApplication.getCreatedAt());
-            this.preparedStatement.setTimestamp(6, jobApplication.getUpdatedAt());
+            this.preparedStatement.setString(3, jobApplication.getUserId());
+            this.preparedStatement.setLong(4, jobApplication.getJobBoardId());
+            this.preparedStatement.setInt(5, jobApplication.getStatus().getValue());
+            this.preparedStatement.setTimestamp(6, jobApplication.getCreatedAt());
+            this.preparedStatement.setTimestamp(7, jobApplication.getUpdatedAt());
             int result = this.preparedStatement.executeUpdate();
             if (result == 1){
                 this.statement = this.connection.createStatement();
@@ -168,10 +171,11 @@ public class JobApplicationPersistence implements IJobApplicationPersistence {
                 jobApplication.setId(resultSet.getLong(1));
                 jobApplication.setJobRole(resultSet.getString(2));
                 jobApplication.setCompany(resultSet.getString(3));
-                jobApplication.setJobBoardId(resultSet.getLong(4));
-                jobApplication.setStatus(JobApplicationStatus.valueOf(resultSet.getInt(5)));
-                jobApplication.setCreatedAt(resultSet.getTimestamp(6));
-                jobApplication.setUpdatedAt(resultSet.getTimestamp(7));
+                jobApplication.setUserId(resultSet.getString(4));
+                jobApplication.setJobBoardId(resultSet.getLong(5));
+                jobApplication.setStatus(JobApplicationStatus.valueOf(resultSet.getInt(6)));
+                jobApplication.setCreatedAt(resultSet.getTimestamp(7));
+                jobApplication.setUpdatedAt(resultSet.getTimestamp(8));
                 jobApplications.add(jobApplication);
             }
             return jobApplications;

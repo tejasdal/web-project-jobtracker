@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class DBConfig {
     private static DBConfig uniqueInstance = null;
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/jobtracker?createDatabaseIfNotExist=true&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "password";
+    private static final String URL = "jdbc:mysql://web-group-21.cvrfhckf0rla.us-east-1.rds.amazonaws.com:3306/jobtracker?createDatabaseIfNotExist=true&serverTimezone=UTC";
+    private static final String USER = "admin";
+    private static final String PASSWORD = "adminweb21";
 
     public DBConfig() {
     }

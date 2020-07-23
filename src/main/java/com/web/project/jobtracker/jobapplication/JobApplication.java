@@ -8,6 +8,7 @@ public class JobApplication {
     private Long jobBoardId;
     private String jobRole;
     private String company;
+    private String userId;
     private JobApplicationStatus status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -66,5 +67,13 @@ public class JobApplication {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

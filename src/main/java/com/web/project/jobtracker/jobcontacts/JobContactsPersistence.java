@@ -44,7 +44,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
             }
             return null;
         }catch (SQLException e) {
-            log.error("Error executing insert query on JobApplication table: {}", e.getMessage());
+            log.error("Error executing insert query on Contact table: {}", e.getMessage());
             return null;
         } finally {
             this.closePreparedStatement();
@@ -60,7 +60,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
             this.preparedStatement.setString(1,jobContacts.getContactName());
             this.preparedStatement.setString(2,jobContacts.getContactEmail());
             this.preparedStatement.setString(3,jobContacts.getCompany());
-            this.preparedStatement.setString(4,jobContacts.getContactEmail());
+            this.preparedStatement.setString(4,jobContacts.getJobPosition());
             this.preparedStatement.setLong(5,jobContacts.getContactID());
             int result = this.preparedStatement.executeUpdate();
             if(result == 1) {
@@ -68,7 +68,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
             }
             return null;
             }catch (SQLException e) {
-            log.error("Error executing update query on JobApplication table: {}", e.getMessage());
+            log.error("Error executing update query on Contact table: {}", e.getMessage());
             return null;
         } finally {
             this.closePreparedStatement();
@@ -77,15 +77,15 @@ public class JobContactsPersistence implements IJobContactsPersistence {
     }
 
     @Override
-    public void delete(JobContacts jobContacts) {
+    public void delete(Long jobContactId) {
         try {
             this.getConnection();
             this.getPreparedStatement(DELETE);
-            this.preparedStatement.setLong(1, jobContacts.getContactID());
+            this.preparedStatement.setLong(1, jobContactId);
             this.preparedStatement.executeUpdate();
 
         }catch (SQLException e) {
-            log.error("Error executing delete query on JobApplication table: {}", e.getMessage());
+            log.error("Error executing delete query on Contact table: {}", e.getMessage());
          } finally {
             this.closePreparedStatement();
             this.cleanConnection();
@@ -110,7 +110,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
          }
          return jobContacts;
      }catch (SQLException e){
-         log.error("Error executing select query on Contacts table: {}", e.getMessage());
+         log.error("Error executing select query on Contact table: {}", e.getMessage());
          return null;
      } finally {
          this.closePreparedStatement();
@@ -136,7 +136,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
             }
             return jc;
         } catch (SQLException e) {
-            log.error("Error executing select unique ID query on JobApplication table: {}", e.getMessage());
+            log.error("Error executing select unique ID query on Contact table: {}", e.getMessage());
             return null;
         } finally {
             this.closePreparedStatement();
