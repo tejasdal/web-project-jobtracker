@@ -8,8 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@CrossOrigin("*")
 @ComponentScan(basePackages = {"com.web.project.jobtracker.configurations","com.web.project.jobtracker.jobapplication","com.web.project.jobtracker.jobboard","com.web.project.jobtracker.jobcontacts"})
 public class JobtrackerApplication {
 	public static void main(String[] args) {

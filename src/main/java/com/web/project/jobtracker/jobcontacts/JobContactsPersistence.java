@@ -55,12 +55,14 @@ public class JobContactsPersistence implements IJobContactsPersistence {
     @Override
     public JobContacts update(JobContacts jobContacts) {
         try {
+            System.out.println("INside Update Query");
+            System.out.println(jobContacts.getContactID() + jobContacts.getContactName());
             this.getConnection();
             this.getPreparedStatement(UPDATE);
             this.preparedStatement.setString(1,jobContacts.getContactName());
             this.preparedStatement.setString(2,jobContacts.getContactEmail());
             this.preparedStatement.setString(3,jobContacts.getCompany());
-            this.preparedStatement.setString(4,jobContacts.getContactEmail());
+            this.preparedStatement.setString(4,jobContacts.getJobPosition());
             this.preparedStatement.setLong(5,jobContacts.getContactID());
             int result = this.preparedStatement.executeUpdate();
             if(result == 1) {
@@ -77,11 +79,11 @@ public class JobContactsPersistence implements IJobContactsPersistence {
     }
 
     @Override
-    public void delete(JobContacts jobContacts) {
+    public void delete(Long jobContactId) {
         try {
             this.getConnection();
             this.getPreparedStatement(DELETE);
-            this.preparedStatement.setLong(1, jobContacts.getContactID());
+            this.preparedStatement.setLong(1, jobContactId);
             this.preparedStatement.executeUpdate();
 
         }catch (SQLException e) {

@@ -7,7 +7,7 @@ public interface IJobContactsPersistence {
 
     JobContacts update(JobContacts jobContacts);
 
-    void delete(JobContacts jobContacts);
+    void delete(Long jobContactId);
 
     List<JobContacts> searchAll();
 

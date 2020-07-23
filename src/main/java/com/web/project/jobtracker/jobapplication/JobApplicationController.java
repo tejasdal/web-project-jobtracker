@@ -40,6 +40,7 @@ public class JobApplicationController {
 
     @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteJobApplication(@RequestParam("id") Long jobApplicationId) throws JobApplicationNotExistsException, JobApplicationException {
+        System.out.println("Application ID" + jobApplicationId);
         this.jobApplicationService.deleteJobApplication(jobApplicationId);
     }
 }
