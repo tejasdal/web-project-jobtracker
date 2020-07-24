@@ -9,9 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Tejas Patel
+ * Service class containing bussiness logic to perform CRUD operation on job board.
+ */
 @Service
 public class JobBoardService implements IJobBoardService {
 
@@ -78,9 +83,17 @@ public class JobBoardService implements IJobBoardService {
     }
 
     @Override
-    public List<JobBoard> getJobBoardForUser(Long userId) throws JobBoardException {
+    public JobBoard getJobBoardForUser(String userId) throws JobBoardException {
         try{
-            return this.jobBoardPersistence.getJobBoardByUserId(userId);
+            List<JobBoard> jobBoards = this.jobBoardPersistence.getJobBoardByUserId(userId);
+            if(null != jobBoards && jobBoards.size() > 0){
+                return jobBoards.get(0);
+            }else{
+                JobBoard newJobBoard = new JobBoard();
+                newJobBoard.setUserId(userId);
+                newJobBoard.setName("My New Job Board!");
+                return this.saveJobBoard(newJobBoard);
+            }
         }catch (Exception e){
             log.error("Error while fetching job boards for user with ID: {} from the database. Error: {}", userId, e);
             throw new JobBoardException("Error while fetching job boards for user with ID: " + userId + " in the database.", e);

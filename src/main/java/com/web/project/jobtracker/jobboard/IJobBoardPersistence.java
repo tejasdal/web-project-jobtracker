@@ -2,6 +2,10 @@ package com.web.project.jobtracker.jobboard;
 
 import java.util.List;
 
+/**
+ * @author Tejas Patel
+ * Persistence interface containing persistence methods signature that will perform CRUD operation on jobboard of DB.
+ */
 public interface IJobBoardPersistence {
     JobBoard findById(Long jobBoardId);
 
@@ -11,5 +15,5 @@ public interface IJobBoardPersistence {
 
     void delete(Long jobBoardId);
 
-    List<JobBoard> getJobBoardByUserId(Long userId);
+    List<JobBoard> getJobBoardByUserId(String userId);
 }

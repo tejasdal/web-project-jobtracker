@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Tejas Patel
+ * Controller to expose REST APIs to perform CRUD operation on job board.
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/job-board")
@@ -38,7 +42,7 @@ public class JobBoardController {
     }
 
     @GetMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JobBoard> getJobBoardForUser(@RequestParam("userId") Long userId) throws JobBoardException {
+    public JobBoard getJobBoardForUser(@RequestParam("userId") String userId) throws JobBoardException {
         return this.jobBoardService.getJobBoardForUser(userId);
     }
 }

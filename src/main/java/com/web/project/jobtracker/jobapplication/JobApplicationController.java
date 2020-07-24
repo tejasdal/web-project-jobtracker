@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tejas Patel
+ * Controller to expose REST APIs to perform CRUD operation on job application.
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/job-application")

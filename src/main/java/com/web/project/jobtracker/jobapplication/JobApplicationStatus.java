@@ -3,6 +3,10 @@ package com.web.project.jobtracker.jobapplication;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Tejas Patel
+ * Enum to define status of job application.
+ */
 public enum JobApplicationStatus {
 
     WHISHLIST(1), APPLIED(2), INTERVIEW(3), OFFER(4), REJECT(5);

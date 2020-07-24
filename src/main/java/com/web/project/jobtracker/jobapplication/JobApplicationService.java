@@ -12,6 +12,10 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author Tejas Patel
+ * Service class containing bussiness logic to perform CRUD operation on job application.
+ */
 @Service
 public class JobApplicationService implements IJobApplicationService{
 

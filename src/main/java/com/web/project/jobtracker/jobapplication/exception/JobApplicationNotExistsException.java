@@ -1,5 +1,9 @@
 package com.web.project.jobtracker.jobapplication.exception;
 
+/**
+ * @author Tejas Patel
+ * Exception to define job application does not exists in DB.
+ */
 public class JobApplicationNotExistsException extends Exception{
 
     public JobApplicationNotExistsException() {

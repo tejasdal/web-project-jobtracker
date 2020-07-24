@@ -3,10 +3,14 @@ package com.web.project.jobtracker.jobboard;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * @author Tejas Patel
+ * Schema of a job board.
+ */
 public class JobBoard {
 
     private Long id;
-    private Long userId;
+    private String userId;
     private String name;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -19,11 +23,11 @@ public class JobBoard {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

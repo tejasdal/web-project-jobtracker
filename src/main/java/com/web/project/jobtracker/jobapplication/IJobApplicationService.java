@@ -7,6 +7,10 @@ import com.web.project.jobtracker.jobapplication.exception.JobApplicationNotExis
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tejas Patel
+ * Service interface containing methods signature that will perform CRUD operation on job application.
+ */
 public interface IJobApplicationService {
     JobApplication getJobApplication(Long jobApplicationId) throws JobApplicationNotExistsException;
 

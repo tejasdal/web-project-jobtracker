@@ -11,6 +11,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Tejas Patel
+ * Persistence class containing persistence logic to perform CRUD operation on jobapplication table of DB.
+ */
 @Repository
 public class JobApplicationPersistence implements IJobApplicationPersistence {
 

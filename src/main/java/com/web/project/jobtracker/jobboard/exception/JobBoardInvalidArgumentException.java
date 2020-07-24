@@ -1,5 +1,9 @@
 package com.web.project.jobtracker.jobboard.exception;
 
+/**
+ * @author Tejas Patel
+ * Exception to define invalid arguments to perform operation on job board.
+ */
 public class JobBoardInvalidArgumentException extends Exception {
 
     public JobBoardInvalidArgumentException() {

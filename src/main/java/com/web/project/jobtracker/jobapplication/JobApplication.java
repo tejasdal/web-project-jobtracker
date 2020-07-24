@@ -2,6 +2,10 @@ package com.web.project.jobtracker.jobapplication;
 
 import java.sql.Timestamp;
 
+/**
+ * @author Tejas Patel
+ * Schema of a job application.
+ */
 public class JobApplication {
 
     private Long id;

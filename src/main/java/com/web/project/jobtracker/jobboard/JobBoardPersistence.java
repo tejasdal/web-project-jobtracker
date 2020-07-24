@@ -10,6 +10,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Tejas Patel
+ * Persistence class containing persistence logic to perform CRUD operation on jobboard table of DB.
+ */
 @Repository
 public class JobBoardPersistence implements IJobBoardPersistence {
 
@@ -38,7 +42,7 @@ public class JobBoardPersistence implements IJobBoardPersistence {
             if(resultSet.next()){
                 jobBoard = new JobBoard();
                 jobBoard.setId(resultSet.getLong(1));
-                jobBoard.setUserId(resultSet.getLong(2));
+                jobBoard.setUserId(resultSet.getString(2));
                 jobBoard.setName(resultSet.getString(3));
                 jobBoard.setCreatedAt(resultSet.getTimestamp(4));
                 jobBoard.setUpdatedAt(resultSet.getTimestamp(5));
@@ -58,14 +62,14 @@ public class JobBoardPersistence implements IJobBoardPersistence {
             this.getConnection();
             this.getPreparedStatement(FIND_BY_NAME_USER_ID_CREATED_DATE);
             this.preparedStatement.setString(1, jobBoard.getName());
-            this.preparedStatement.setLong(2, jobBoard.getUserId());
+            this.preparedStatement.setString(2, jobBoard.getUserId());
             this.preparedStatement.setTimestamp(3, jobBoard.getCreatedAt());
             ResultSet resultSet = this.preparedStatement.executeQuery();
             JobBoard dbJobBoard = null;
             if(resultSet.next()){
                 dbJobBoard = new JobBoard();
                 dbJobBoard.setId(resultSet.getLong(1));
-                dbJobBoard.setUserId(resultSet.getLong(2));
+                dbJobBoard.setUserId(resultSet.getString(2));
                 dbJobBoard.setName(resultSet.getString(3));
                 dbJobBoard.setCreatedAt(resultSet.getTimestamp(4));
                 dbJobBoard.setUpdatedAt(resultSet.getTimestamp(5));
@@ -85,7 +89,7 @@ public class JobBoardPersistence implements IJobBoardPersistence {
         try {
             this.getConnection();
             this.getPreparedStatement(SAVE);
-            this.preparedStatement.setLong(1, jobBoard.getUserId());
+            this.preparedStatement.setString(1, jobBoard.getUserId());
             this.preparedStatement.setString(2, jobBoard.getName());
             this.preparedStatement.setTimestamp(3, jobBoard.getCreatedAt());
             this.preparedStatement.setTimestamp(4, jobBoard.getUpdatedAt());
@@ -146,17 +150,17 @@ public class JobBoardPersistence implements IJobBoardPersistence {
     }
 
     @Override
-    public List<JobBoard> getJobBoardByUserId(Long userId) {
+    public List<JobBoard> getJobBoardByUserId(String userId) {
         try {
             this.getConnection();
             this.getPreparedStatement(FIND_BY_USER_ID);
-            this.preparedStatement.setLong(1, userId);
+            this.preparedStatement.setString(1, userId);
             ResultSet resultSet = this.preparedStatement.executeQuery();
             List<JobBoard> jobBoards = new ArrayList<>();
             while(resultSet.next()){
                 JobBoard jobBoard = new JobBoard();
                 jobBoard.setId(resultSet.getLong(1));
-                jobBoard.setUserId(resultSet.getLong(2));
+                jobBoard.setUserId(resultSet.getString(2));
                 jobBoard.setName(resultSet.getString(3));
                 jobBoard.setCreatedAt(resultSet.getTimestamp(4));
                 jobBoard.setUpdatedAt(resultSet.getTimestamp(5));

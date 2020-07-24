@@ -1,5 +1,9 @@
 package com.web.project.jobtracker.jobboard.exception;
 
+/**
+ * @author Tejas Patel
+ * Exception to define any general error of job board.
+ */
 public class JobBoardException extends Exception {
 
     public JobBoardException() {

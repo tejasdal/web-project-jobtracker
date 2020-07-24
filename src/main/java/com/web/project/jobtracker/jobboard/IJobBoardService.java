@@ -6,6 +6,10 @@ import com.web.project.jobtracker.jobboard.exception.JobBoardNotExistsException;
 
 import java.util.List;
 
+/**
+ * @author Tejas Patel
+ * Service interface containing methods signature that will perform CRUD operation on job board.
+ */
 public interface IJobBoardService {
     JobBoard getJobBoard(Long jobBoardId) throws JobBoardNotExistsException;
 
@@ -15,5 +19,5 @@ public interface IJobBoardService {
 
     void deleteJobBoard(Long jobBoardId) throws JobBoardNotExistsException, JobBoardException;
 
-    List<JobBoard> getJobBoardForUser(Long userId) throws JobBoardException;
+    JobBoard getJobBoardForUser(String userId) throws JobBoardException;
 }

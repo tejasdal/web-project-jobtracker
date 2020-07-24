@@ -1,5 +1,9 @@
 package com.web.project.jobtracker.jobboard.exception;
 
+/**
+ * @author Tejas Patel
+ * Exception to define job board does not exists in DB.
+ */
 public class JobBoardNotExistsException extends Exception {
 
     public JobBoardNotExistsException() {

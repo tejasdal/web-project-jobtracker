@@ -1,5 +1,9 @@
 package com.web.project.jobtracker.jobapplication.exception;
 
+/**
+ * @author Tejas Patel
+ * Exception to define any general error of job application.
+ */
 public class JobApplicationException extends Exception {
 
     public JobApplicationException() {
