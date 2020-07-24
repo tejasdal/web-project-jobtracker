@@ -19,13 +19,13 @@ public class JobBoardPersistence implements IJobBoardPersistence {
     private PreparedStatement preparedStatement;
     private Statement statement;
 
-    private static final String FIND_BY_ID = "SELECT id, user_id, name, created_date, updated_date FROM JobBoard where id = ?";
-    private static final String FIND_BY_USER_ID = "SELECT id, user_id, name, created_date, updated_date FROM JobBoard where user_id = ?";
-    private static final String FIND_BY_NAME_USER_ID_CREATED_DATE = "SELECT id, user_id, name, created_date, updated_date FROM JobBoard " +
+    private static final String FIND_BY_ID = "SELECT id, user_id, name, created_date, updated_date FROM jobboard where id = ?";
+    private static final String FIND_BY_USER_ID = "SELECT id, user_id, name, created_date, updated_date FROM jobboard where user_id = ?";
+    private static final String FIND_BY_NAME_USER_ID_CREATED_DATE = "SELECT id, user_id, name, created_date, updated_date FROM jobboard " +
             " where name = ? AND user_id = ? AND created_date = ?";
-    private static final String SAVE = "INSERT INTO JobBoard(user_id, name, created_date, updated_date) VALUE (?, ?, ?, ?)";
-    private static final String UPDATE = "UPDATE JobBoard SET name = ?, updated_date = ? WHERE id = ?";
-    private static final String DELETE = "DELETE FROM JobBoard WHERE id = ?";
+    private static final String SAVE = "INSERT INTO jobboard(user_id, name, created_date, updated_date) VALUE (?, ?, ?, ?)";
+    private static final String UPDATE = "UPDATE jobboard SET name = ?, updated_date = ? WHERE id = ?";
+    private static final String DELETE = "DELETE FROM jobboard WHERE id = ?";
 
     @Override
     public JobBoard findById(Long jobBoardId) {

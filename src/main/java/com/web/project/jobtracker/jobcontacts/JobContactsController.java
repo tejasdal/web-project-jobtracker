@@ -33,7 +33,7 @@ public class JobContactsController {
     }
 
     @DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteContact(@RequestBody JobContacts jobContacts) throws JobContactsException, JobContactsInvalidArgumentException, JobContactsNotExistsException {
-        this.jobContactsService.deleteJobContacts(jobContacts);
+    public void deleteContact(@RequestParam("contactID") Long jobContactId) throws JobContactsException, JobContactsInvalidArgumentException, JobContactsNotExistsException {
+        this.jobContactsService.deleteJobContacts(jobContactId);
     }
 }
