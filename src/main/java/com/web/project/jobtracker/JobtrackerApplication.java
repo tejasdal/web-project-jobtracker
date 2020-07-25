@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 		"com.web.project.jobtracker.usermanagement",
 		"com.web.project.jobtracker.JobAnalysis",
 		"com.web.project.jobtracker.jobactivities",
-		"com.web.project.jobtracker.notificationManagement"})
+		"com.web.project.jobtracker.notificationManagement",
+		"com.web.project.jobtracker.blog",
+})
 
 public class JobtrackerApplication {
 	public static void main(String[] args) {
