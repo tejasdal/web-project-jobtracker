@@ -1,3 +1,4 @@
+//DML queries for application database.
 CREATE TABLE `jobboard` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `user_id` bigint DEFAULT NULL,
