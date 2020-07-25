@@ -28,7 +28,6 @@ public class JobActivitiesService implements IJobActivitiesService{
             List<JobActivities> completedItemsList = new ArrayList<JobActivities>();
 
             jobActivitiesList = jobActivitiesPersistence.getAllJobActivities(userID);
-            System.out.println("jobActivitiesList Length : " + jobActivitiesList.size());
             for(JobActivities ja : jobActivitiesList){
                 if(ja.getActivity_status() == 0 && ja.getDate_completed() == null){
                     toDoItemsList.add(ja);
@@ -40,10 +39,6 @@ public class JobActivitiesService implements IJobActivitiesService{
             newlist.add((ArrayList<JobActivities>) toDoItemsList);
             newlist.add((ArrayList<JobActivities>) completedItemsList);
 
-            System.out.println(newlist.size());
-            for(List a: newlist){
-                System.out.println(a);
-            }
         }catch (Exception e){
             log.error("Error while getting the Activity with UserID: {} in the database.",userID);
             throw new JobActivitiesNotExistsException("Error while getting Activity with UserID: "+ userID +" in the database.", e);
