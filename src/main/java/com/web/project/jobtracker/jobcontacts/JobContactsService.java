@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,16 @@ public class JobContactsService implements IJobContactsService{
     private IJobContactsPersistence jobContactsPersistence;
 
     @Override
-    public List<JobContacts> getAllJobContacts() {
+    public List<JobContacts> getAllJobContacts(String userID) throws JobContactsInvalidArgumentException, JobContactsNotExistsException, JobContactsException {
         List<JobContacts> jobContacts = new ArrayList<JobContacts>();
         jobContacts = null;
-        jobContacts = jobContactsPersistence.searchAll();
+        try {
+            jobContacts = jobContactsPersistence.searchAll(userID);
+        }catch (Exception e){
+            log.error("Error while getting the contacts with userID: {} in the database.", userID);
+            throw new JobContactsException("Error while getting job contacts with UserID: " + userID+
+                    " in the database.", e);
+        }
         return jobContacts;
     }
 

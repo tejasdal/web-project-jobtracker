@@ -6,6 +6,7 @@ public class JobContacts {
     private String ContactEmail;
     private String Company;
     private String JobPosition;
+    private String UserID;
 
     public Long getContactID(){ return ContactID; }
     public void setContactID(Long ContactID){ this.ContactID = ContactID; }
@@ -22,4 +23,6 @@ public class JobContacts {
     public String getJobPosition(){ return JobPosition; }
     public void setJobPosition(String JobPosition){ this.JobPosition = JobPosition; }
 
+    public String getUserID() { return UserID; }
+    public void setUserID(String UserID) { this.UserID = UserID; }
 }

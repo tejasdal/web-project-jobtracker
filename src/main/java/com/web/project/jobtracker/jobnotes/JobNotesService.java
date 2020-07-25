@@ -19,10 +19,16 @@ public class JobNotesService implements IJobNotesService {
     IJobNotesPersistence jobNotesPersistence;
 
     @Override
-    public List<JobNotes> getAllJobNotes() {
+    public List<JobNotes> getAllJobNotes(String userID) throws JobNotesNotExistsException, JobNotesException, JobNotesInvalidArgumentException {
         List<JobNotes> jobNotesList = new ArrayList<JobNotes>();
         jobNotesList = null;
-        jobNotesList = jobNotesPersistence.searchAll();
+        try {
+            jobNotesList = jobNotesPersistence.searchAll(userID);
+        }catch (Exception e){
+            log.error("Error while getting the contacts with userID: {} in the database.", userID);
+            throw new JobNotesException("Error while getting job contacts with UserID: " + userID+
+                    " in the database.", e);
+        }
         return jobNotesList;
     }
 

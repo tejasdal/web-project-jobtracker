@@ -9,7 +9,7 @@ public interface IJobContactsPersistence {
 
     void delete(Long jobContactId);
 
-    List<JobContacts> searchAll();
+    List<JobContacts> searchAll(String userID);
 
     JobContacts findById(Long jobContactsId);
 }

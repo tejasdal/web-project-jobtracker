@@ -9,7 +9,7 @@ public interface IJobNotesPersistence {
 
     void delete(int jobNoteId);
 
-    List<JobNotes> searchAll();
+    List<JobNotes> searchAll(String userID);
 
     JobNotes findById(int jobNoteId);
 }

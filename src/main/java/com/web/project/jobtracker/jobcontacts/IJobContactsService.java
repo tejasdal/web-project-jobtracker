@@ -7,7 +7,7 @@ import com.web.project.jobtracker.jobcontacts.exception.JobContactsNotExistsExce
 import java.util.List;
 
 public interface IJobContactsService {
-    List<JobContacts> getAllJobContacts();
+    List<JobContacts> getAllJobContacts(String userID) throws JobContactsInvalidArgumentException, JobContactsNotExistsException, JobContactsException;
 
     JobContacts saveJobContacts(JobContacts jobContacts) throws JobContactsInvalidArgumentException, JobContactsNotExistsException, JobContactsException;
 

@@ -18,8 +18,8 @@ public class JobContactsController {
     private IJobContactsService jobContactsService;
 
     @GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JobContacts> getAllJobContacts(){
-        return this.jobContactsService.getAllJobContacts();
+    public List<JobContacts> getAllJobContacts(@RequestParam("userID") String userID) throws JobContactsException, JobContactsInvalidArgumentException, JobContactsNotExistsException {
+        return this.jobContactsService.getAllJobContacts(userID);
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

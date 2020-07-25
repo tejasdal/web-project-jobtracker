@@ -1,6 +1,6 @@
 package com.web.project.jobtracker.jobactivities;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class JobActivities {
     private int id;

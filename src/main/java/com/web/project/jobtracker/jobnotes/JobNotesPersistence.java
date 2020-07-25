@@ -17,11 +17,11 @@ public class JobNotesPersistence implements IJobNotesPersistence {
     private PreparedStatement preparedStatement;
     private Statement statement;
 
-    public static final String FIND_ALL = "SELECT noteID,noteDetails FROM notes";
-    public static final String INSERT = "INSERT INTO notes(NoteDetails) VALUE(?)";
+    public static final String FIND_ALL = "SELECT noteID,noteDetails,userID FROM notes WHERE userID = ?";
+    public static final String INSERT = "INSERT INTO notes(noteDetails,userID) VALUE(?,?)";
     public static final String UPDATE = "UPDATE notes SET noteDetails = ? WHERE noteID = ?";
     public static final String DELETE = "DELETE FROM notes WHERE noteID = ?";
-    public static final String FIND_BY_ID = "SELECT noteID, noteDetails FROM notes WHERE noteID = ?";
+    public static final String FIND_BY_ID = "SELECT noteID, noteDetails, userID FROM notes WHERE noteID = ?";
 
     @Override
     public JobNotes save(JobNotes jobNotes) {
@@ -29,6 +29,7 @@ public class JobNotesPersistence implements IJobNotesPersistence {
             this.getConnection();
             this.getPreparedStatement(INSERT);
             this.preparedStatement.setString(1,jobNotes.getNoteDetails());
+            this.preparedStatement.setString(2,jobNotes.getUserID());
             int result = this.preparedStatement.executeUpdate();
             if (result == 1){
                 this.statement = this.connection.createStatement();
@@ -86,17 +87,20 @@ public class JobNotesPersistence implements IJobNotesPersistence {
     }
 
     @Override
-    public List<JobNotes> searchAll() {
+    public List<JobNotes> searchAll(String userID) {
         try {
             this.getConnection();
             this.getPreparedStatement(FIND_ALL);
+            this.preparedStatement.setString(1,userID);
             ResultSet resultSet = this.preparedStatement.executeQuery();
 
             List<JobNotes> jobNotesList = new ArrayList<JobNotes>();
+
             while (resultSet.next()){
                 JobNotes jn = new JobNotes();
                 jn.setNoteID(resultSet.getInt("NoteID"));
                 jn.setNoteDetails(resultSet.getString("NoteDetails"));
+                jn.setUserID(resultSet.getString("UserID"));
                 jobNotesList.add(jn);
             }
             return jobNotesList;
@@ -122,6 +126,7 @@ public class JobNotesPersistence implements IJobNotesPersistence {
                 jn = new JobNotes();
                 jn.setNoteID(resultSet.getInt(1));
                 jn.setNoteDetails(resultSet.getString(2));
+                jn.setUserID(resultSet.getString(3));
             }
             return jn;
         }catch (SQLException e) {
