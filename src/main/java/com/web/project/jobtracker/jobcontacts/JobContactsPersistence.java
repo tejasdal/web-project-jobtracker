@@ -9,6 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Anudish Jinturkar
+ * Persistence class containing persistence logic to perform CRUD operation on job contacts table of DB.
+ */
+
 @Repository
 public class JobContactsPersistence implements IJobContactsPersistence {
 
@@ -18,11 +23,11 @@ public class JobContactsPersistence implements IJobContactsPersistence {
     private PreparedStatement preparedStatement;
     private Statement statement;
 
-    public static final String FIND_ALL = "SELECT ContactID, ContactName, ContactEmail, Company, JobPosition FROM Contact";
-    public static final String INSERT = "INSERT INTO Contact(ContactName, ContactEmail, Company, JobPosition) VALUE(?, ?, ?, ?)";
+    public static final String FIND_ALL = "SELECT ContactID, ContactName, ContactEmail, Company, JobPosition, UserID FROM Contact WHERE UserID = ?";
+    public static final String INSERT = "INSERT INTO Contact(ContactName, ContactEmail, Company, JobPosition, UserID) VALUE(?, ?, ?, ?, ?)";
     public static final String UPDATE = "UPDATE Contact SET ContactName = ?, ContactEmail = ?, Company = ?, JobPosition = ? WHERE ContactID = ?";
     public static final String DELETE = "DELETE FROM Contact WHERE ContactID = ?";
-    public static final String FIND_BY_ID = "SELECT ContactID, ContactName, ContactEmail, Company, JobPosition FROM Contact WHERE ContactID = ?";
+    public static final String FIND_BY_ID = "SELECT ContactID, ContactName, ContactEmail, Company, JobPosition, UserID FROM Contact WHERE ContactID = ?";
 
     @Override
     public JobContacts save(JobContacts jobContacts) {
@@ -33,6 +38,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
             this.preparedStatement.setString(2, jobContacts.getContactEmail());
             this.preparedStatement.setString(3, jobContacts.getCompany());
             this.preparedStatement.setString(4, jobContacts.getJobPosition());
+            this.preparedStatement.setString(5,jobContacts.getUserID());
             int result = this.preparedStatement.executeUpdate();
             if (result == 1){
                 this.statement = this.connection.createStatement();
@@ -93,10 +99,11 @@ public class JobContactsPersistence implements IJobContactsPersistence {
     }
 
     @Override
-    public List<JobContacts> searchAll() {
+    public List<JobContacts> searchAll(String userID) {
      try {
          this.getConnection();
          this.getPreparedStatement(FIND_ALL);
+         this.preparedStatement.setString(1,userID);
          ResultSet resultSet = this.preparedStatement.executeQuery();
          List<JobContacts> jobContacts = new ArrayList<JobContacts>();
          while (resultSet.next()){
@@ -106,6 +113,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
              jc.setContactEmail(resultSet.getString("ContactEmail"));
              jc.setCompany(resultSet.getString("Company"));
              jc.setJobPosition(resultSet.getString("JobPosition"));
+             jc.setUserID(resultSet.getString("UserID"));
              jobContacts.add(jc);
          }
          return jobContacts;
@@ -133,6 +141,7 @@ public class JobContactsPersistence implements IJobContactsPersistence {
                 jc.setContactEmail(resultSet.getString(3));
                 jc.setCompany(resultSet.getString(4));
                 jc.setJobPosition(resultSet.getString(5));
+                jc.setUserID(resultSet.getString(6));
             }
             return jc;
         } catch (SQLException e) {

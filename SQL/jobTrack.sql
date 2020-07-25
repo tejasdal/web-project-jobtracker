@@ -26,6 +26,7 @@ CREATE TABLE Contact (
     ContactEmail VARCHAR(45) NOT NULL,
     Company VARCHAR(45),
     JobPosition VARCHAR(45),
+    UserID VARCHAR(45) NOT NULL,
     PRIMARY KEY (ContactID)
  );
 
@@ -43,4 +44,5 @@ CREATE TABLE activity (
 CREATE TABLE notes (
   NoteID INT NOT NULL AUTO_INCREMENT,
   NoteDetails VARCHAR(400) NOT NULL,
+  UserID VARCHAR(50) NOT NULL,
   PRIMARY KEY (NoteID));

@@ -1,5 +1,10 @@
 package com.web.project.jobtracker.jobcontacts.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define invalid arguments to perform operation on job contacts.
+ */
+
 public class JobContactsInvalidArgumentException extends Exception {
     public JobContactsInvalidArgumentException() {
         super("Please provide valid Job Contacts data.");

@@ -6,8 +6,13 @@ import com.web.project.jobtracker.jobnotes.exception.JobNotesNotExistsException;
 
 import java.util.List;
 
+/**
+ * @author Anudish Jinturkar
+ * Service interface containing methods signature that will perform CRUD operation on job notes.
+ */
+
 public interface IJobNotesService {
-    List<JobNotes> getAllJobNotes();
+    List<JobNotes> getAllJobNotes(String userID) throws JobNotesNotExistsException, JobNotesException, JobNotesInvalidArgumentException;
 
     JobNotes saveJobNotes(JobNotes jobNotes) throws JobNotesNotExistsException, JobNotesException, JobNotesInvalidArgumentException;
 

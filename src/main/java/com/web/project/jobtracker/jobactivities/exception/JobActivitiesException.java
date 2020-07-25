@@ -1,8 +1,13 @@
 package com.web.project.jobtracker.jobactivities.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define any general error of job activities.
+ */
+
 public class JobActivitiesException extends Exception {
     public JobActivitiesException() {
-        super("Please provide valid Job Contacts data.");
+        super("Please provide valid Job Activities data.");
     }
 
     public JobActivitiesException(String message) {

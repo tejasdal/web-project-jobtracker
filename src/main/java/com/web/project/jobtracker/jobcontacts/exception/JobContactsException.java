@@ -1,5 +1,10 @@
 package com.web.project.jobtracker.jobcontacts.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define any general error of job contacts.
+ */
+
 public class JobContactsException extends Exception{
     public JobContactsException(){
     }

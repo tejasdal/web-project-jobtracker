@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Anudish Jinturkar
+ * Controller to expose REST APIs to perform CRUD operation on job contacts.
+ */
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/contact")
@@ -18,8 +23,8 @@ public class JobContactsController {
     private IJobContactsService jobContactsService;
 
     @GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JobContacts> getAllJobContacts(){
-        return this.jobContactsService.getAllJobContacts();
+    public List<JobContacts> getAllJobContacts(@RequestParam("userID") String userID) throws JobContactsException, JobContactsInvalidArgumentException, JobContactsNotExistsException {
+        return this.jobContactsService.getAllJobContacts(userID);
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

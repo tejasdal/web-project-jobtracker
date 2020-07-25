@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author Tejas Patel
- * Persistence interface containing persistence methods signature that will perform CRUD operation on jobapplication of DB.
+ * Persistence interface containing persistence methods signature that will perform CRU operation on jobapplication of DB.
  */
 public interface IJobApplicationPersistence {
     JobApplication findById(Long jobApplicationId);

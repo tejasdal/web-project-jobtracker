@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Anudish Jinturkar
+ * Service class containing bussiness logic to perform CRUD operation on job notes.
+ */
 @Service
 public class JobNotesService implements IJobNotesService {
     Logger log = LoggerFactory.getLogger(JobNotesService.class);
@@ -19,10 +23,16 @@ public class JobNotesService implements IJobNotesService {
     IJobNotesPersistence jobNotesPersistence;
 
     @Override
-    public List<JobNotes> getAllJobNotes() {
+    public List<JobNotes> getAllJobNotes(String userID) throws JobNotesNotExistsException, JobNotesException, JobNotesInvalidArgumentException {
         List<JobNotes> jobNotesList = new ArrayList<JobNotes>();
         jobNotesList = null;
-        jobNotesList = jobNotesPersistence.searchAll();
+        try {
+            jobNotesList = jobNotesPersistence.searchAll(userID);
+        }catch (Exception e){
+            log.error("Error while getting the contacts with userID: {} in the database.", userID);
+            throw new JobNotesException("Error while getting job contacts with UserID: " + userID+
+                    " in the database.", e);
+        }
         return jobNotesList;
     }
 

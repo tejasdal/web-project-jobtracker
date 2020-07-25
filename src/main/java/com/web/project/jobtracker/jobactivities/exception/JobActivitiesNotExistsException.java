@@ -1,9 +1,14 @@
 package com.web.project.jobtracker.jobactivities.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define job activities does not exists in DB.
+ */
+
 public class JobActivitiesNotExistsException extends Exception {
     public JobActivitiesNotExistsException(){ }
-    public JobActivitiesNotExistsException(Long jobContactsId){
-        super("Job Contacts with ID: " + jobContactsId + " does not exists in the database.");
+    public JobActivitiesNotExistsException(int jobActivityId){
+        super("Job Activities with ID: " + jobActivityId + " does not exists in the database.");
     }
 
     public JobActivitiesNotExistsException(String message) {

@@ -1,9 +1,14 @@
 package com.web.project.jobtracker.jobnotes.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define job notes does not exists in DB.
+ */
+
 public class JobNotesNotExistsException extends Exception {
     public JobNotesNotExistsException(){ }
-    public JobNotesNotExistsException(Long jobContactsId){
-        super("Job Contacts with ID: " + jobContactsId + " does not exists in the database.");
+    public JobNotesNotExistsException(int jobNoteID){
+        super("Job Notes with ID: " + jobNoteID + " does not exists in the database.");
     }
 
     public JobNotesNotExistsException(String message) {

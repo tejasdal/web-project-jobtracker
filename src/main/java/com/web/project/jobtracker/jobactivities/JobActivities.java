@@ -1,6 +1,11 @@
 package com.web.project.jobtracker.jobactivities;
 
-import java.util.Date;
+import java.sql.Date;
+
+/**
+ * @author Anudish Jinturkar
+ * Schema of a job activities.
+ */
 
 public class JobActivities {
     private int id;

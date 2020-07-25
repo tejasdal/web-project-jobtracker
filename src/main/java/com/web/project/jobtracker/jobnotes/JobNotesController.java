@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Anudish Jinturkar
+ * Controller to expose REST APIs to perform CRUD operation on job notes.
+ */
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/notes")
@@ -18,7 +23,8 @@ public class JobNotesController {
     private IJobNotesService jobNotesService;
 
     @GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JobNotes> getAllNotes(){ return  this.jobNotesService.getAllJobNotes(); }
+    public List<JobNotes> getAllNotes(@RequestParam("userID") String userID)throws JobNotesNotExistsException, JobNotesException, JobNotesInvalidArgumentException {
+        return  this.jobNotesService.getAllJobNotes(userID); }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public JobNotes saveJobNotes(@RequestBody JobNotes jobNotes) throws JobNotesNotExistsException, JobNotesInvalidArgumentException, JobNotesException {

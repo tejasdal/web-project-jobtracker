@@ -1,8 +1,13 @@
 package com.web.project.jobtracker.jobnotes.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define invalid arguments to perform operation on job notes.
+ */
+
 public class JobNotesInvalidArgumentException extends Exception {
     public JobNotesInvalidArgumentException() {
-        super("Please provide valid Job Contacts data.");
+        super("Please provide valid Job Notes data.");
     }
 
     public JobNotesInvalidArgumentException(String message) {

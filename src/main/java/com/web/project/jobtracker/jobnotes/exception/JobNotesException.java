@@ -1,5 +1,10 @@
 package com.web.project.jobtracker.jobnotes.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define any general error of job notes.
+ */
+
 public class JobNotesException extends Exception{
     public JobNotesException(){
     }

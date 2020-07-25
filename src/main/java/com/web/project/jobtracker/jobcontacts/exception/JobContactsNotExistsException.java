@@ -1,5 +1,9 @@
 package com.web.project.jobtracker.jobcontacts.exception;
 
+/**
+ * @author Anudish Jinturkar
+ * Exception to define job contacts does not exists in DB.
+ */
 public class JobContactsNotExistsException extends Exception {
     public  JobContactsNotExistsException(){ }
     public JobContactsNotExistsException(Long jobContactsId){
