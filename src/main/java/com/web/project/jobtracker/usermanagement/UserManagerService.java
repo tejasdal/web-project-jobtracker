@@ -3,6 +3,11 @@ package com.web.project.jobtracker.usermanagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Parth Bagaria
+ *
+ * Banner ID: B00839783
+ */
 @Service
 public class UserManagerService implements IUserManagerService{
 
@@ -17,5 +22,10 @@ public class UserManagerService implements IUserManagerService{
     @Override
     public void updateUser(User user) {
         userManagerPersistence.updateUser(user);
+    }
+
+    @Override
+    public void newUser(NewUser user) {
+        userManagerPersistence.newUser(user);
     }
 }

@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
+/**
+ * @author Parth Bagaria
+ *
+ * Banner ID: B00839783
+ */
 @Repository
 public class UserManagerPersistence implements IUserManagerPersistence{
 
@@ -49,6 +54,30 @@ public class UserManagerPersistence implements IUserManagerPersistence{
             this.preparedStatement.setString(5, user.getLinkedInURL());
             this.preparedStatement.setString(6, user.getPassword());
             this.preparedStatement.setString(7, user.getEmail());
+            this.preparedStatement.executeUpdate();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            this.closePreparedStatement();
+            this.cleanConnection();
+        }
+    }
+
+    @Override
+    public void newUser(NewUser user) {
+        try {
+            this.getConnection();
+            this.getPreparedStatement("INSERT into user values (?,?)");
+            this.preparedStatement.setString(1, user.getEmail());
+            this.preparedStatement.setString(2, user.getPassword());
+            this.preparedStatement.executeUpdate();
+            this.getPreparedStatement("INSERT into user_profile values (?,?,?,?,?,?)");
+            this.preparedStatement.setString(1, user.getEmail());
+            this.preparedStatement.setString(2, "");
+            this.preparedStatement.setString(3, "");
+            this.preparedStatement.setString(4, "");
+            this.preparedStatement.setString(5, "");
+            this.preparedStatement.setString(6, user.getPassword());
             this.preparedStatement.executeUpdate();
         }catch (SQLException e) {
             System.out.println(e.getMessage());

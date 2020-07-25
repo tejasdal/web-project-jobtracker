@@ -1,5 +1,10 @@
 package com.web.project.jobtracker.usermanagement;
 
+/**
+ * @author Parth Bagaria
+ *
+ * Banner ID: B00839783
+ */
 public class User {
     private String firstName;
     private String lastName;
