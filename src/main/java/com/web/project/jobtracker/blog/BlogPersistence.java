@@ -9,6 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Zankrut Thakkar  B00856858
+ * Persistence class of the blog package
+ */
+
 @Repository
 public class BlogPersistence implements IBlogPersistence {
 
@@ -22,6 +27,7 @@ public class BlogPersistence implements IBlogPersistence {
     public static final String INSERT = "INSERT INTO blog(user_id,title,sub_title,content,keyword,created_date,updated_date) VALUE(?, ?, ?, ?, ?, ?,?)";
     public static final String FIND_BY_ID = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date FROM blog WHERE id = ?";
     public static final String FIND_BY_TITLE = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date FROM blog where title like CONCAT('%',?,'%')";
+    public static final String DELETE = "DELETE FROM blog WHERE id = ?";
 
     @Override
     public List<Blog> getAll() {
@@ -60,7 +66,7 @@ public class BlogPersistence implements IBlogPersistence {
             this.preparedStatement.setLong(1, user_id);
             ResultSet resultSet = this.preparedStatement.executeQuery();
             List<Blog> blogPostByUser = new ArrayList<>();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 Blog blogByUser = new Blog();
                 blogByUser.setId(resultSet.getLong(1));
                 blogByUser.setUserId(resultSet.getString(2));
@@ -83,22 +89,22 @@ public class BlogPersistence implements IBlogPersistence {
     }
 
     @Override
-    public Blog save(Blog blog){
+    public Blog save(Blog blog) {
         try {
             this.getConnection();
             this.getPreparedStatement(INSERT);
             this.preparedStatement.setString(1, blog.getUserId());
-            this.preparedStatement.setString(2,blog.getTitle());
+            this.preparedStatement.setString(2, blog.getTitle());
             this.preparedStatement.setString(3, blog.getSubTitle());
             this.preparedStatement.setString(4, blog.getContent());
-            this.preparedStatement.setString(5,blog.getKeyword());
+            this.preparedStatement.setString(5, blog.getKeyword());
             this.preparedStatement.setTimestamp(6, blog.getCreatedAt());
             this.preparedStatement.setTimestamp(7, blog.getUpdatedAt());
             int result = this.preparedStatement.executeUpdate();
-            if (result == 1){
+            if (result == 1) {
                 this.statement = this.connection.createStatement();
                 ResultSet rs = this.statement.executeQuery("SELECT LAST_INSERT_ID()");
-                if (rs.next()){
+                if (rs.next()) {
                     Long id = rs.getLong(1);
                     return findById(id);
                 }
@@ -121,7 +127,7 @@ public class BlogPersistence implements IBlogPersistence {
             this.preparedStatement.setLong(1, blog_id);
             ResultSet resultSet = this.preparedStatement.executeQuery();
             Blog blogById = null;
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 blogById = new Blog();
                 blogById.setId(resultSet.getLong(1));
                 blogById.setUserId(resultSet.getString(2));
@@ -150,7 +156,7 @@ public class BlogPersistence implements IBlogPersistence {
             this.preparedStatement.setString(1, title);
             ResultSet resultSet = this.preparedStatement.executeQuery();
             List<Blog> blogPostByUser = new ArrayList<>();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 Blog blogByTitle = new Blog();
                 blogByTitle.setId(resultSet.getLong(1));
                 blogByTitle.setUserId(resultSet.getString(2));
@@ -166,6 +172,22 @@ public class BlogPersistence implements IBlogPersistence {
         } catch (SQLException e) {
             log.error("Error executing select query on Blogs table: {}", e.getMessage());
             return null;
+        } finally {
+            this.closePreparedStatement();
+            this.cleanConnection();
+        }
+    }
+
+    @Override
+    public void delete(long id) {
+        try {
+            this.getConnection();
+            this.getPreparedStatement(DELETE);
+            this.preparedStatement.setLong(1, id);
+            this.preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error("Error executing delete query on Blog table: {}", e.getMessage());
         } finally {
             this.closePreparedStatement();
             this.cleanConnection();

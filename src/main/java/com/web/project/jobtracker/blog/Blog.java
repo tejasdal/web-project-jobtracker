@@ -2,6 +2,11 @@ package com.web.project.jobtracker.blog;
 
 import java.sql.Timestamp;
 
+/**
+ * @author Zankrut Thakkar  B00856858
+ * Model class for storing Blog data
+ */
+
 public class Blog {
 
     private Long id;

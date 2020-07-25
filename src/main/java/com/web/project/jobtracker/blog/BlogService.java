@@ -3,9 +3,6 @@ package com.web.project.jobtracker.blog;
 import com.web.project.jobtracker.blog.exception.BlogException;
 import com.web.project.jobtracker.blog.exception.BlogInvalidArgumentException;
 import com.web.project.jobtracker.blog.exception.BlogNotExistsException;
-import com.web.project.jobtracker.jobapplication.JobApplication;
-import com.web.project.jobtracker.jobapplication.exception.JobApplicationException;
-import com.web.project.jobtracker.jobapplication.exception.JobApplicationInvalidArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * @author Zankrut Thakkar  B00856858
+ * Service class of the blog package
+ */
 
 @Service
 public class BlogService implements IBlogService {
@@ -63,6 +65,17 @@ public class BlogService implements IBlogService {
         Blog blogById = new Blog();
         blogById = blogPersistence.findById(id);
         return blogById;
+    }
+
+    @Override
+    public void deleteBlogById(Long id) throws BlogException, BlogNotExistsException, BlogInvalidArgumentException {
+        try {
+            this.blogPersistence.delete(id);
+        } catch (Exception e) {
+            log.error("Error while deleting the contact with blog: {} in the database.", id);
+            throw new BlogException("Error while deleting blog with ID: " + id +
+                    " in the database.", e);
+        }
     }
 
     private void validateBlog(Blog blog) throws BlogInvalidArgumentException {
