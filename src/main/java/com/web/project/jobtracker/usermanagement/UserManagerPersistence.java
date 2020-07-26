@@ -118,12 +118,22 @@ public class UserManagerPersistence implements IUserManagerPersistence{
 
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             msg.setSubject("Reset Password");
-
-            msg.setContent("Your password is: " + generateRandomDigits(6) , "text/html");
+            int str = generateRandomDigits(6);
+            msg.setContent("Your password is: " + str , "text/html");
 
             Transport.send(msg);
+
+            this.getConnection();
+            this.getPreparedStatement("UPDATE user SET password=? WHERE email=?");
+            this.preparedStatement.setString(1, Integer.toString(str));
+            this.preparedStatement.setString(2, email);
+            this.preparedStatement.executeUpdate();
+            this.getPreparedStatement("UPDATE user_profile SET password=? WHERE email=?");
+            this.preparedStatement.setString(1, Integer.toString(str));
+            this.preparedStatement.setString(2, email);
+            this.preparedStatement.executeUpdate();
         }
-        catch (MessagingException ex)
+        catch (MessagingException | SQLException ex)
         {
             ex.printStackTrace();
         }
