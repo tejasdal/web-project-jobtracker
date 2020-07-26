@@ -28,4 +28,9 @@ public class UserManagerService implements IUserManagerService{
     public void newUser(NewUser user) {
         userManagerPersistence.newUser(user);
     }
+
+    @Override
+    public void resetPassword(String email) {
+        userManagerPersistence.resetPassword(email);
+    }
 }

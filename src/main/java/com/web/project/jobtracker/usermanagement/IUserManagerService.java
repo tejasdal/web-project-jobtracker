@@ -12,4 +12,6 @@ public interface IUserManagerService {
     public void updateUser(User user);
 
     public void newUser(NewUser user);
+
+    public void resetPassword(String email);
 }

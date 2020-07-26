@@ -21,7 +21,6 @@ public class AuthenticationController {
 
     @GetMapping(value = "/getUser/{email}")
     public ResponseEntity<User> getUser(@PathVariable String email) {
-        System.out.println("worked");
         User user = null;
         if (email != null) {
             user = userManagerService.getUser(email);
@@ -29,6 +28,12 @@ public class AuthenticationController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(user);
+    }
+    @GetMapping(value = "/forgotPassword/{email}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void forgotPassword(@PathVariable String email) {
+        if (email != null) {
+            userManagerService.resetPassword(email);
+        }
     }
 
     @PostMapping(value = "/updateUser",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

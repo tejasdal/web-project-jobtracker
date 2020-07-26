@@ -3,7 +3,12 @@ package com.web.project.jobtracker.usermanagement;
 import com.web.project.jobtracker.configurations.DBConfig;
 import org.springframework.stereotype.Repository;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.sql.*;
+import java.util.Properties;
+import java.util.Random;
 
 /**
  * @author Parth Bagaria
@@ -15,6 +20,8 @@ public class UserManagerPersistence implements IUserManagerPersistence{
 
     private Connection connection;
     private PreparedStatement preparedStatement;
+    private static final String EMAIL = "imparth12@gmail.com";
+    private static final String PASSWORD = "parth1229";
 
     @Override
     public User getUser(String email) {
@@ -87,6 +94,41 @@ public class UserManagerPersistence implements IUserManagerPersistence{
         }
     }
 
+    @Override
+    public void resetPassword(String email) {
+
+        try
+        {
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            Session session = Session.getInstance(props, new Authenticator()
+            {
+                protected PasswordAuthentication getPasswordAuthentication()
+                {
+                    return new PasswordAuthentication(EMAIL,PASSWORD);
+                }
+            });
+
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress(EMAIL, false));
+
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            msg.setSubject("Reset Password");
+
+            msg.setContent("Your password is: " + generateRandomDigits(6) , "text/html");
+
+            Transport.send(msg);
+        }
+        catch (MessagingException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
     public void getConnection() throws SQLException {
         this.connection = DBConfig.instance().getDBConnection();
     }
@@ -115,5 +157,9 @@ public class UserManagerPersistence implements IUserManagerPersistence{
         }catch (SQLException e){
 
         }
+    }
+    public static int generateRandomDigits(int n) {
+        int m = (int) Math.pow(10, n - 1);
+        return m + new Random().nextInt(9 * m);
     }
 }
