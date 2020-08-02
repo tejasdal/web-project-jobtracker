@@ -47,8 +47,8 @@ public class BlogService implements IBlogService {
             blog.setUpdatedAt(new Timestamp(new Date().getTime()));
             return this.blogPersistence.save(blog);
         } catch (Exception e) {
-            log.error("Error while saving new job application with ID: {} in the database.", blog.getId());
-            throw new BlogException("Error while saving new job application with ID: " + blog.getId() +
+            log.error("Error while saving new blog application with ID: {} in the database.", blog.getId());
+            throw new BlogException("Error while saving new blog application with ID: " + blog.getId() +
                     " in the database.", e);
         }
     }

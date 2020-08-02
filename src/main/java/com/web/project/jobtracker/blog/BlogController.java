@@ -6,7 +6,11 @@ import com.web.project.jobtracker.blog.exception.BlogNotExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -22,7 +26,7 @@ public class BlogController {
     @Autowired
     private IBlogService blogService;
 
-    @GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Blog> getBlogs() {
         return blogService.getAllBlogs();
     }
@@ -42,9 +46,13 @@ public class BlogController {
         return this.blogService.getBlogByTitle(title);
     }
 
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Blog insertBlog(@RequestBody Blog blog) throws BlogException, BlogInvalidArgumentException,BlogNotExistsException {
+    @PostMapping(value = "/")
+    public Blog insertBlog(@ModelAttribute Blog blog) throws BlogException, BlogInvalidArgumentException, BlogNotExistsException, IOException {
+        System.out.println("blog image" + blog.getBlogImage());
+        System.out.println(blog.getBlogImage().getSize());
+        System.out.println(blog.getBlogImage().getBytes());
         return this.blogService.saveBlog(blog);
+//        return new Blog();
     }
     @DeleteMapping(value = "/blogid", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteBlog(@RequestParam("id") Long blogId) throws BlogNotExistsException, BlogInvalidArgumentException, BlogException {

@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +25,10 @@ public class BlogPersistence implements IBlogPersistence {
     private PreparedStatement preparedStatement;
     private Statement statement;
 
-    public static final String FIND_ALL = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date FROM blog";
+    public static final String FIND_ALL = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date,img FROM blog";
     public static final String FIND_BY_USER = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date FROM blog where user_id=?";
-    public static final String INSERT = "INSERT INTO blog(user_id,title,sub_title,content,keyword,created_date,updated_date) VALUE(?, ?, ?, ?, ?, ?,?)";
-    public static final String FIND_BY_ID = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date FROM blog WHERE id = ?";
+    public static final String INSERT = "INSERT INTO blog(user_id,title,sub_title,content,keyword,created_date,updated_date,img) VALUE(?, ?, ?, ?, ?, ?,?,?)";
+    public static final String FIND_BY_ID = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date,img FROM blog WHERE id = ?";
     public static final String FIND_BY_TITLE = "SELECT id,user_id,title,sub_title,content,keyword,created_date,updated_date FROM blog where title like CONCAT('%',?,'%')";
     public static final String DELETE = "DELETE FROM blog WHERE id = ?";
 
@@ -46,6 +49,10 @@ public class BlogPersistence implements IBlogPersistence {
                 blog.setKeyword(resultSet.getString(6));
                 blog.setCreatedAt(resultSet.getTimestamp(7));
                 blog.setUpdatedAt(resultSet.getTimestamp(8));
+                Blob blob = resultSet.getBlob(9);
+                if(blob != null) {
+                    blog.setImage(blob.getBytes(1, (int) blob.length()));
+                }
                 blogpost.add(blog);
             }
             return blogpost;
@@ -76,11 +83,15 @@ public class BlogPersistence implements IBlogPersistence {
                 blogByUser.setKeyword(resultSet.getString(6));
                 blogByUser.setCreatedAt(resultSet.getTimestamp(7));
                 blogByUser.setUpdatedAt(resultSet.getTimestamp(8));
+                Blob blob = resultSet.getBlob(9);
+                if(blob != null) {
+                    blogByUser.setImage(blob.getBytes(1, (int) blob.length()));
+                }
                 blogPostByUser.add(blogByUser);
             }
             return blogPostByUser;
         } catch (SQLException e) {
-            log.error("Error executing select query on Blogs table: {}", e.getMessage());
+            log.error("Error executing select query on Blog table: {}", e.getMessage());
             return null;
         } finally {
             this.closePreparedStatement();
@@ -100,6 +111,7 @@ public class BlogPersistence implements IBlogPersistence {
             this.preparedStatement.setString(5, blog.getKeyword());
             this.preparedStatement.setTimestamp(6, blog.getCreatedAt());
             this.preparedStatement.setTimestamp(7, blog.getUpdatedAt());
+            this.preparedStatement.setBlob(8, new SerialBlob( blog.getBlogImage().getBytes()));
             int result = this.preparedStatement.executeUpdate();
             if (result == 1) {
                 this.statement = this.connection.createStatement();
@@ -110,8 +122,8 @@ public class BlogPersistence implements IBlogPersistence {
                 }
             }
             return null;
-        } catch (SQLException e) {
-            log.error("Error executing insert query on JobApplication table: {}", e.getMessage());
+        } catch (SQLException | IOException e) {
+            log.error("Error executing insert query on Blog table: {}", e.getMessage());
             return null;
         } finally {
             this.closePreparedStatement();
@@ -137,6 +149,10 @@ public class BlogPersistence implements IBlogPersistence {
                 blogById.setKeyword(resultSet.getString(6));
                 blogById.setCreatedAt(resultSet.getTimestamp(7));
                 blogById.setUpdatedAt(resultSet.getTimestamp(8));
+                Blob blob = resultSet.getBlob(9);
+                if(blob != null) {
+                    blogById.setImage(blob.getBytes(1, (int) blob.length()));
+                }
             }
             return blogById;
         } catch (SQLException e) {
@@ -170,7 +186,7 @@ public class BlogPersistence implements IBlogPersistence {
             }
             return blogPostByUser;
         } catch (SQLException e) {
-            log.error("Error executing select query on Blogs table: {}", e.getMessage());
+            log.error("Error executing select query on Blog table: {}", e.getMessage());
             return null;
         } finally {
             this.closePreparedStatement();

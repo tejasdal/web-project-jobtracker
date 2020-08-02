@@ -1,5 +1,8 @@
 package com.web.project.jobtracker.blog;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.sql.Blob;
 import java.sql.Timestamp;
 
 /**
@@ -17,7 +20,10 @@ public class Blog {
     private String keyword;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-
+    private MultipartFile blogImage;
+    private String type;
+    private String fileName;
+    private byte[] image;
 
     public Long getId() {
         return id;
@@ -81,5 +87,37 @@ public class Blog {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public MultipartFile getBlogImage() {
+        return blogImage;
+    }
+
+    public void setBlogImage(MultipartFile blogImage) {
+        this.blogImage = blogImage;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
